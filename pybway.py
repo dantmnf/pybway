@@ -13,7 +13,12 @@ class Metro(QtWebKit.QWebView):
       self.load(QtCore.QUrl(QtGui.QApplication.arguments()[1]))
     self.showFullScreen()
     self.connect(self.page().mainFrame(), QtCore.SIGNAL("javaScriptWindowObjectCleared()"), self.javaScriptWindowObjectCleared)
-  
+    defaultSettings = QtWebKit.QWebSettings.globalSettings()
+    defaultSettings.setAttribute(QtWebKit.QWebSettings.JavascriptEnabled, True)
+    defaultSettings.setAttribute(QtWebKit.QWebSettings.PluginsEnabled, True)
+    defaultSettings.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, True)
+    defaultSettings.setAttribute(QtWebKit.QWebSettings.LocalStorageDatabaseEnabled, True)
+    
   def javaScriptWindowObjectCleared(self):
     self.page().mainFrame().addToJavaScriptWindowObject("MetroView", self)
     
